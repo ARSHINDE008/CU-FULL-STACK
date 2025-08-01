@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banking UI</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .bank-container {
+      background:white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .balance-display {
+      font-size: 1.5em;
+      margin: 20px 0;
+      color: #2e8b57;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 500px) {
+      .buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bank-container">
+    <h1>My Bank</h1>
+    <div class="balance-display">
+      Balance: $<span id="balance">1000</span>
+    </div>
+    <div class="buttons">
+      <button onclick="updateBalance('deposit')">Deposit</button>
+      <button onclick="updateBalance('withdraw')">Withdraw</button>
+    </div>
+  </div>
+
+  <script>
+    let balance = 1000;
+
+    function updateBalance(action) {
+      let amount = parseFloat(prompt(`Enter amount to ${action}:`));
+      if (isNaN(amount) || amount <= 0) {
+        alert("Invalid amount!");
+        return;
+      }
+
+      if (action === 'withdraw' && amount > balance) {
+        alert("Insufficient funds!");
+        return;
+      }
+
+      balance = action === 'deposit' ? balance + amount : balance - amount;
+      document.getElementById("balance").textContent = balance.toFixed(2);
+    }
+  </script>
+</body>
+</html>
